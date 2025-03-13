@@ -1,14 +1,8 @@
-// ✅ 載入 Client Component
-
 import ProfileClient from "@/components/ProfileClient";
-
 interface PageProps {
-  params: { id: string }; // ✅ 取得 `[id]` 參數
+  params: { id: string }; // ✅ 確保 `params` 正確
 }
 
 export default function DynamicPage({ params }: PageProps) {
-  const { id } = params; // ✅ 讀取 URL 參數
-  console.log(id);
-
   return <ProfileClient />;
 }
