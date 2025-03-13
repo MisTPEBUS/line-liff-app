@@ -29,7 +29,7 @@ export default function ProfileClient({ channelId }: ProfileClientProps) {
   }, [channelId]); // ✅ 當 `channelId` 變更時，重新取得 User ID
 
   if (loading) {
-    return <p>🔄 載入中...</p>;
+    return <p> 載入中...</p>;
   }
 
   return (
