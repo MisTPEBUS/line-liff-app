@@ -10,13 +10,7 @@ type PageProps = {
   };
 };
 
-const Page = ({ params }: PageProps) => {
-  useEffect(() => {
-    if (params?.id) {
-      Cookies.set("channelId", params.id, { expires: 7 });
-    }
-  }, [params.id]); // ✅ 修正依賴
-
+const Page = () => {
   return <ProfileClient />;
 };
 
