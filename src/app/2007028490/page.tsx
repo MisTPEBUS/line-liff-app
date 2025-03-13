@@ -1,17 +1,7 @@
-"use client";
-
-import { useEffect } from "react";
 import ProfileClient from "@/components/ProfileClient";
 import Cookies from "js-cookie";
 
-type PageProps = {
-  params: {
-    id: string;
-  };
-};
-
-const Page = () => {
+export default function DynamicPage() {
+  Cookies.set("channelId", "2007028490", { expires: 7 });
   return <ProfileClient />;
-};
-
-export default Page;
+}
