@@ -8,6 +8,7 @@ interface PageProps {
 
 export default function DynamicPage({ params }: PageProps) {
   const { id } = params; // ✅ 讀取 URL 參數
+  console.log(id);
 
   return <ProfileClient />;
 }
