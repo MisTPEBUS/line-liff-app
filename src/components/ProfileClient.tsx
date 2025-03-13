@@ -3,6 +3,9 @@
 import { getUserId, initLiff } from "@/utils/liff";
 import { useEffect, useState } from "react";
 
+interface ProviderProps {
+  chanelId: string;
+}
 export default function ProfileClient() {
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
