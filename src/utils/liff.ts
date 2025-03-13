@@ -44,3 +44,10 @@ export async function getUserId(): Promise<string | null> {
     return null;
   }
 }
+export async function closeWindow() {
+  if (liff.isInClient()) {
+    liff.closeWindow();
+  } else {
+    alert("此功能僅適用於 LINE 應用程式內");
+  }
+}
