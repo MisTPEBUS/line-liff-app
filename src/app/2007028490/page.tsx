@@ -15,7 +15,7 @@ const Page = ({ params }: PageProps) => {
     if (params?.id) {
       Cookies.set("channelId", params.id, { expires: 7 });
     }
-  }, [params?.id]);
+  }, [params.id]); // ✅ 修正依賴
 
   return <ProfileClient />;
 };
