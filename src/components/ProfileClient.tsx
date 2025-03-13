@@ -3,10 +3,11 @@
 import { getUserId, initLiff } from "@/utils/liff";
 import { useEffect, useState } from "react";
 
-/* interface ProviderProps {
-  chanelId: string;
-} */
-export default function ProfileClient() {
+interface ProfileClientProps {
+  channelId: string; // ✅ 這樣 `ProfileClient` 才能正確接收 `channelId`
+}
+
+export default function ProfileClient({ channelId }: ProfileClientProps) {
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -17,15 +18,18 @@ export default function ProfileClient() {
 
       if (id) {
         setUserId(id);
+      } else {
+        console.warn("⚠️ 無法取得 User ID");
       }
+
       setLoading(false);
     }
 
     fetchUserId();
-  }, []);
+  }, [channelId]); // ✅ 當 `channelId` 變更時，重新取得 User ID
 
   if (loading) {
-    return <p>載入中...</p>;
+    return <p>🔄 載入中...</p>;
   }
 
   return (

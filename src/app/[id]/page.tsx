@@ -1,8 +1,9 @@
 import ProfileClient from "@/components/ProfileClient";
+
 interface PageProps {
-  params: { id: string }; // ✅ 確保 `params` 正確
+  params: { id: string }; // ✅ `params` 內的 `id`
 }
 
 export default function DynamicPage({ params }: PageProps) {
-  return <ProfileClient />;
+  return <ProfileClient channelId={params.id} />; // ✅ 傳遞 `id`
 }
