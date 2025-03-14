@@ -31,17 +31,17 @@ export default function ProfileClient() {
             "https://line-notify-18ab.onrender.com/v1/api/lineHook/user/checkUser",
             {
               userId: Profile?.userId,
-              channelId: "2007049872",
+              channelId: "2007028490",
             }
           );
 
           if (response.data?.id && response.data) {
-            router.push(`/2007049872/notify_info`);
+            router.push(`/2007028490/notify_info`);
           } else {
-            router.push(`/2007049872/signIn`);
+            router.push(`/2007028490/signIn`);
           }
         } catch (error) {
-          router.push(`/2007049872/signIn`);
+          router.push(`/2007028490/signIn`);
           console.error("❌ API 請求失敗:", error);
         }
       }
