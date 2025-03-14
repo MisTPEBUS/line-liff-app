@@ -3,10 +3,10 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-// ✅ 定義表單 schema
+
+// 定義表單 schema
 const formSchema = z.object({
   company: z.enum(["臺北客運", "首都客運"], { message: "請選擇公司" }),
   dept: z.enum(
@@ -27,49 +27,92 @@ const formSchema = z.object({
   name: z.string().optional(),
 });
 
-const payload = {
-  company: "",
-  groupCode: "", // 如果沒有輸入專案群組則傳空字串
-  phone: "", // 如果未提供 phone，可直接留空
-  job: "",
-  dept: "",
-  empId: "",
-  name: "",
-  channelId: "2007028490", // 可根據需求動態調整
-  userId: "", // 從 cookies 讀取的 userId
-};
-
-// ✅ 定義表單類型
+// 定義表單類型
 type FormData = z.infer<typeof formSchema>;
+
+// 定義 API 的 payload 型別
+export type LineNotifyPayload = {
+  company: string;
+  groupCode: string; // 如果沒有輸入專案群組則傳空字串
+  phone: string; // 如果未提供 phone，可直接留空
+  job: string;
+  dept: string;
+  empId: string;
+  name: string;
+  channelId: string; // 可根據需求動態調整
+  userId: string; // 從 cookies 讀取的 userId
+};
 
 export default function TaipeiBusBinding() {
   const [storedUserId, setStoredUserId] = useState<string | null>(null);
-  const [storedPayload, setStoredPayload] = useState<string | null>(null);
+  const [StoredDisplayName, setStoredDisplayName] = useState<string | null>(
+    null
+  );
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      company: "臺北客運",
+      dept: undefined,
+      job: "",
+      projectGroup: "",
+      empId: "",
+      name: StoredDisplayName ?? "",
+    },
   });
 
   useEffect(() => {
     const userId = Cookies.get("userId");
     const displayName = Cookies.get("displayName");
-    payload.empId = userId as string;
-    payload.name = displayName as string;
-
-    setStoredUserId(userId || null);
+    setStoredUserId(userId ?? "");
+    setStoredDisplayName(displayName ?? "");
   }, []);
 
-  const onSubmit = (data: FormData) => {
-    console.log("📢 表單提交:", data);
-    alert("綁定成功！");
+  const onSubmit = async (data: FormData) => {
+    // 組裝 payload
+    const payload: LineNotifyPayload = {
+      company: "臺北客運",
+      groupCode: data.projectGroup || "",
+      phone: "",
+      job: data.job || "",
+      dept: data.dept,
+      empId: data.empId,
+      name: data.name || "",
+      channelId: "2007028490",
+      userId: storedUserId || "",
+    };
+
+    try {
+      const response = await fetch(
+        "https://line-notify-18ab.onrender.com/v1/api/lineHook/user",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("請求失敗");
+      }
+      const result = await response.json();
+      console.log("API 回應：", result);
+      alert("綁定成功！");
+    } catch (error) {
+      console.error("送出失敗：", error);
+      alert("送出失敗，請稍後再試");
+    }
   };
 
   return (
     <div className="max-w-lg mx-auto mt-10 p-6 bg-white border rounded-lg shadow-lg">
-      <h1 className="text-2xl font-bold mb-4  text-center text-orange-500">
+      <h1 className="text-2xl font-bold mb-4 text-center text-orange-500">
         臺北客運通知綁定
       </h1>
 
@@ -80,7 +123,8 @@ export default function TaipeiBusBinding() {
             公司名稱 <span className="text-red-500">*</span>
           </label>
           <select
-            value="臺北客運"
+            // 使用 defaultValue 保持預設值，並將元件設為 disabled
+            defaultValue="臺北客運"
             disabled
             {...register("company", { required: "請選擇公司" })}
             className="w-full p-2 border rounded bg-white appearance-none pr-8"
@@ -103,7 +147,7 @@ export default function TaipeiBusBinding() {
             部門 <span className="text-red-500">*</span>
           </label>
           <select
-            value=""
+            defaultValue=""
             {...register("dept", { required: "請選擇部門" })}
             className="w-full p-2 border rounded bg-white appearance-none pr-8"
           >
@@ -124,7 +168,7 @@ export default function TaipeiBusBinding() {
         <div className="relative">
           <label className="block font-semibold mb-2">職稱</label>
           <select
-            value=""
+            defaultValue=""
             {...register("job")}
             className="w-full p-2 border rounded bg-white appearance-none pr-8"
           >
@@ -133,7 +177,13 @@ export default function TaipeiBusBinding() {
             <option value="經理">經理</option>
             <option value="科長">科長</option>
             <option value="副理">副理</option>
-            {/* 其他選項 */}
+            <option value="襄理">襄理</option>
+            <option value="課長">課長</option>
+            <option value="主任">主任</option>
+            <option value="股長">股長</option>
+            <option value="場站主管">場站主管</option>
+            <option value="場站職員">場站職員</option>
+            <option value="內勤職員">內勤職員</option>
           </select>
           <div className="absolute right-2 top-10 pointer-events-none">▼</div>
           {errors.job && (
@@ -178,8 +228,6 @@ export default function TaipeiBusBinding() {
             placeholder="輸入姓名"
           />
         </div>
-
-        {/* 其他欄位：如果需要 phone 或 userId 等也可以加上 */}
 
         {/* 送出按鈕 */}
         <button
