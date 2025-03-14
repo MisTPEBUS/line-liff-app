@@ -32,9 +32,9 @@ export default function ProfileClient() {
 
           // ✅ 判斷 `id` 是否存在，導向不同路徑
           if (response.data.id) {
-            router.push(`/2007028490/notify_info`); // ✅ `id` 存在，跳轉到通知頁面
+            router.push(`/2007028490/notify_info`);
           } else {
-            router.push(`/2007028490/signIn`); // ❌ `id` 不存在，跳轉到登入頁面
+            router.push(`/2007028490/signIn`);
           }
         } catch (error) {
           console.error("❌ API 請求失敗:", error);

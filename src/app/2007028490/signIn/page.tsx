@@ -3,7 +3,9 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 // ✅ 定義表單 schema
 const formSchema = z.object({
   department: z.enum(
@@ -28,6 +30,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 export default function TaipeiBusBinding() {
+  const [storedUserId, setStoredUserId] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -35,6 +38,11 @@ export default function TaipeiBusBinding() {
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
+
+  useEffect(() => {
+    const userId = Cookies.get("userId");
+    setStoredUserId(userId || null);
+  }, []);
 
   const onSubmit = (data: FormData) => {
     console.log("📢 表單提交:", data);
