@@ -86,7 +86,7 @@ export default function TaipeiBusBinding() {
           body: JSON.stringify(payload),
         }
       );
-
+      alert("綁定成功");
       if (!response.ok) {
         throw new Error("請求失敗");
       }
