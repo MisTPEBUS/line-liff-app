@@ -27,11 +27,24 @@ const formSchema = z.object({
   name: z.string().optional(),
 });
 
+const payload = {
+  company: "",
+  groupCode: "", // 如果沒有輸入專案群組則傳空字串
+  phone: "", // 如果未提供 phone，可直接留空
+  job: "",
+  dept: "",
+  empId: "",
+  name: "",
+  channelId: "2007028490", // 可根據需求動態調整
+  userId: "", // 從 cookies 讀取的 userId
+};
+
 // ✅ 定義表單類型
 type FormData = z.infer<typeof formSchema>;
 
 export default function TaipeiBusBinding() {
   const [storedUserId, setStoredUserId] = useState<string | null>(null);
+  const [storedPayload, setStoredPayload] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -42,6 +55,10 @@ export default function TaipeiBusBinding() {
 
   useEffect(() => {
     const userId = Cookies.get("userId");
+    const displayName = Cookies.get("displayName");
+    payload.empId = userId as string;
+    payload.name = displayName as string;
+
     setStoredUserId(userId || null);
   }, []);
 
