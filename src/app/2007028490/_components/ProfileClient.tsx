@@ -15,7 +15,7 @@ export default function ProfileClient() {
     async function fetchUserIdAndData() {
       await initLiff(); // ✅ 先初始化 LIFF
       const id = await getUserId();
-
+      router.push(`/2007028490/notify_info`);
       if (id) {
         setUserId(id);
         Cookies.set("userId", id, { expires: 7 }); // ✅ 存入 Cookie
@@ -36,7 +36,7 @@ export default function ProfileClient() {
           if (response.data.id) {
             alert(response.data.id);
             Cookies.set("userData", response.data, { expires: 1 }); // ✅ 存入 Cookie
-            router.push(`/2007028490/notify`); // ✅ `id` 存在，跳轉到通知頁面
+            router.push(`/2007028490/notify_info`); // ✅ `id` 存在，跳轉到通知頁面
           } else {
             router.push(`/2007028490/signIn`); // ❌ `id` 不存在，跳轉到登入頁面
           }
