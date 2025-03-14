@@ -4,7 +4,7 @@ import { getUserId, initLiff } from "@/utils/liff";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
-export default function ProfileClient() {
+export default function Profile1Client() {
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 

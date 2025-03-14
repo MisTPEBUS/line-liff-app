@@ -31,10 +31,11 @@ export default function ProfileClient() {
           );
 
           console.log("✅ API 回應:", response.data);
-
+          alert(response.data.id);
           // ✅ 判斷 `id` 是否存在，導向不同路徑
           if (response.data.id) {
-            Cookies.set("userData", response.data, { expires: 7 }); // ✅ 存入 Cookie
+            alert(response.data.id);
+            Cookies.set("userData", response.data, { expires: 1 }); // ✅ 存入 Cookie
             router.push(`/2007028490/notify`); // ✅ `id` 存在，跳轉到通知頁面
           } else {
             router.push(`/2007028490/signIn`); // ❌ `id` 不存在，跳轉到登入頁面
@@ -51,7 +52,7 @@ export default function ProfileClient() {
   }, [router]); // ✅ `router` 變更時重新執行
 
   if (loading) {
-    return <p>🔄 載入中...</p>;
+    return <p> 載入中...</p>;
   }
 
   return (
