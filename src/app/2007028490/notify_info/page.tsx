@@ -66,7 +66,7 @@ const NotificationBindingPage = () => {
   const handleUnbind = async () => {
     try {
       await axios.delete(
-        `https://line-notify-18ab.onrender.com/v1/api/lineHook/user/${mockData.channelId}/${mockData.userId}`
+        `https://line-notify-18ab.onrender.com/v1/api/lineHook/user/${mockData.channelId}/${storedUserId}`
       );
       alert("解除成功");
       liff.closeWindow();
