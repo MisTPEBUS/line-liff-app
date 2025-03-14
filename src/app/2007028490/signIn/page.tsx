@@ -9,18 +9,7 @@ import Cookies from "js-cookie";
 // 定義表單 schema
 const formSchema = z.object({
   company: z.enum(["臺北客運", "首都客運"], { message: "請選擇公司" }),
-  dept: z.enum(
-    [
-      "D64業務部",
-      "D78 資訊中心",
-      "T01四海站",
-      "T02南雅站",
-      "T03中和站",
-      "T04新店站",
-      "T05木柵站",
-    ],
-    { message: "請選擇部門" }
-  ),
+  dept: z.string({ message: "請選擇部門" }),
   job: z.string().optional(),
   projectGroup: z.string().optional(),
   empId: z.string().min(1, { message: "員工編號為必填" }),
@@ -57,7 +46,7 @@ export default function TaipeiBusBinding() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       company: "臺北客運",
-      dept: undefined,
+      dept: "",
       job: "",
       projectGroup: "",
       empId: "",
@@ -103,10 +92,8 @@ export default function TaipeiBusBinding() {
       }
       const result = await response.json();
       console.log("API 回應：", result);
-      alert("綁定成功！");
     } catch (error) {
       console.error("送出失敗：", error);
-      alert("送出失敗，請稍後再試");
     }
   };
 

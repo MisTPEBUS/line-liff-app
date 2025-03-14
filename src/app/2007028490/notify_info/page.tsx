@@ -24,17 +24,17 @@ type Employee = {
 
 // 假資料
 const test: Employee = {
-  id: "acec81cc-5e65-442e-abc4-5cfe0af0f937",
+  id: "",
   company: "臺北客運",
   groupCode: "",
   phone: "",
-  job: "專員",
-  dept: "D78 資訊中心",
-  empId: "19541",
-  name: "Lobinda Wang",
+  job: "",
+  dept: "",
+  empId: "",
+  name: "",
   channelId: "2007028490",
-  userId: "U77bc55ff44a63d93b88e891780b6c04f",
-  insertAt: "2025-03-13T03:35:29.060Z",
+  userId: "U77bc55ff44a63d93b88e891780berror",
+  insertAt: "",
 };
 
 const NotificationBindingPage = () => {
