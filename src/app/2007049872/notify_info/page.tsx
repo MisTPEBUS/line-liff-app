@@ -26,14 +26,14 @@ type Employee = {
 // 假資料
 const test: Employee = {
   id: "",
-  company: "臺北客運",
+  company: "首都客運",
   groupCode: "",
   phone: "",
   job: "",
   dept: "",
   empId: "",
   name: "",
-  channelId: "2007028490",
+  channelId: "2007049872",
   userId: "U77bc55ff44a63d93b88e891780berror",
   insertAt: "",
 };
@@ -60,7 +60,7 @@ const NotificationBindingPage = () => {
           "https://line-notify-18ab.onrender.com/v1/api/lineHook/user/checkUser",
           {
             userId: userId,
-            channelId: "2007028490",
+            channelId: "2007049872",
           }
         );
         if (response.data) {
@@ -128,7 +128,7 @@ const NotificationBindingPage = () => {
           id="channel-id"
           className="text-sm bg-gray-200 p-2 mt-4 text-center"
         >
-          ChannelId: 2007028490
+          ChannelId: 2007049872
         </h6>
       </Card>
     </div>
