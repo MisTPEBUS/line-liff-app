@@ -61,6 +61,7 @@ const NotificationBindingPage = () => {
         console.error("❌ API 請求失敗:", error);
       }
     }
+    fetchUserIdAndData();
   }, []);
   const handleUnbind = async () => {
     try {
