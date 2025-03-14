@@ -151,12 +151,25 @@ export default function TaipeiBusBinding() {
             {...register("dept", { required: "請選擇部門" })}
             className="w-full p-2 border rounded bg-white appearance-none pr-8"
           >
-            <option value="">請選擇部門</option>
-            <option value="D64業務部">D64業務部</option>
-            <option value="D78 資訊中心">D78 資訊中心</option>
-            <option value="T01四海站">T01四海站</option>
-            <option value="T02南雅站">T02南雅站</option>
-            {/* 其他選項 */}
+            <option value="業務部"> 業務部</option>
+            <option value="資訊中心">資訊中心</option>
+            <option value="四海站"> 四海站</option>
+            <option value="南雅站"> 南雅站</option>
+            <option value="中和站"> 中和站</option>
+            <option value="新店站"> 新店站</option>
+            <option value="木柵站"> 木柵站</option>
+            <option value="樹林站"> 樹林站</option>
+            <option value="三峽一站">三峽一站</option>
+            <option value="歡仔園站">歡仔園站</option>
+            <option value="民生站"> 民生站</option>
+            <option value="三峽二站">三峽二站</option>
+            <option value="板橋後站">板橋後站</option>
+            <option value="中華站"> 中華站</option>
+            <option value="五福站"> 五福站</option>
+            <option value="林口站"> 林口站</option>
+            <option value="蘆洲站"> 蘆洲站</option>
+            <option value="江子翠站">江子翠站</option>
+            <option value="瑞芳站"> 瑞芳站</option>
           </select>
           <div className="absolute right-2 top-10 pointer-events-none">▼</div>
           {errors.dept && (
