@@ -29,9 +29,9 @@ export default function ProfileClient() {
               channelId: "2007028490",
             }
           );
-
+          console.log("API call completed, response:", response.data);
           // ✅ 判斷 `id` 是否存在，導向不同路徑
-          if (response.data.id) {
+          if (response.data && response.data.id) {
             router.push(`/2007028490/notify_info`);
           } else {
             router.push(`/2007028490/signIn`);
