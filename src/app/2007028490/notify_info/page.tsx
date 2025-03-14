@@ -3,8 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { closeWindow } from "@/utils/liff";
+import liff from "@line/liff";
 import axios from "axios";
-
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
 // 定義 TypeScript 型別
 type Employee = {
   id: string;
@@ -37,13 +39,18 @@ const mockData: Employee = {
 
 const NotificationBindingPage = () => {
   // 點選「是，解除綁定」按鈕時呼叫此函式
+  const [storedUserId, setStoredUserId] = useState<string | null>(null);
+  useEffect(() => {
+    const userId = Cookies.get("userId");
+    setStoredUserId(userId || null);
+  }, []);
   const handleUnbind = async () => {
     try {
-      alert("解除成功");
       await axios.delete(
         `https://line-notify-18ab.onrender.com/v1/api/lineHook/user/${mockData.channelId}/${mockData.userId}`
       );
-      closeWindow();
+      alert("解除成功");
+      liff.closeWindow();
     } catch (error) {
       console.error("解除綁定失敗：", error);
     }
@@ -91,6 +98,7 @@ const NotificationBindingPage = () => {
           className="text-sm bg-gray-200 p-2 mt-4 text-center"
         >
           ChannelId: 2007028490
+          <p>userId:{storedUserId}</p>
         </h6>
       </Card>
     </div>
