@@ -8,7 +8,7 @@ import { getUserProfile, initLiff } from "@/utils/liff";
 
 export default function ProfileClient() {
   const router = useRouter(); // ✅ 設定 Next.js router
-  const [userId, setUserId] = useState<string | null>(null);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,7 +22,6 @@ export default function ProfileClient() {
       console.log("🟢 取得的 Profile:", Profile);
 
       if (Profile?.userId) {
-        setUserId(Profile.userId);
         Cookies.set("userId", Profile?.userId, { expires: 7 });
         Cookies.set("displayName", Profile?.displayName, { expires: 7 });
 
