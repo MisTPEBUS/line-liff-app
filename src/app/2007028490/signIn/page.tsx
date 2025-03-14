@@ -3,15 +3,16 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 // ✅ 定義表單 schema
 const formSchema = z.object({
-  department: z.enum(
+  company: z.enum(["臺北客運", "首都客運"], { message: "請選擇公司" }),
+  dept: z.enum(
     [
       "D64業務部",
-      "D78資訊中心",
+      "D78 資訊中心",
       "T01四海站",
       "T02南雅站",
       "T03中和站",
@@ -20,9 +21,9 @@ const formSchema = z.object({
     ],
     { message: "請選擇部門" }
   ),
-  position: z.string().optional(),
+  job: z.string().optional(),
   projectGroup: z.string().optional(),
-  employeeId: z.string().min(1, { message: "員工編號為必填" }),
+  empId: z.string().min(1, { message: "員工編號為必填" }),
   name: z.string().optional(),
 });
 
@@ -62,46 +63,43 @@ export default function TaipeiBusBinding() {
             公司名稱 <span className="text-red-500">*</span>
           </label>
           <select
-            {...register("department")}
+            value="臺北客運"
+            disabled
+            {...register("company", { required: "請選擇公司" })}
             className="w-full p-2 border rounded bg-white appearance-none pr-8"
           >
             <option value="">請選擇公司</option>
-            <option value="2007028490">臺北客運</option>
-            <option value="200702841">首都客運</option>
+            <option value="臺北客運">臺北客運</option>
+            <option value="首都客運">首都客運</option>
           </select>
-          {/* 模擬下拉箭頭 */}
           <div className="absolute right-2 top-10 pointer-events-none">▼</div>
-          {errors.department && (
+          {errors.company && (
             <p className="text-red-500 text-sm mt-1">
-              {errors.department.message}
+              {errors.company.message}
             </p>
           )}
         </div>
 
-        {/* 部門 (必填) */}
+        {/* 部門 */}
         <div className="relative">
           <label className="block font-semibold mb-2">
             部門 <span className="text-red-500">*</span>
           </label>
           <select
-            {...register("department")}
+            value=""
+            {...register("dept", { required: "請選擇部門" })}
             className="w-full p-2 border rounded bg-white appearance-none pr-8"
           >
             <option value="">請選擇部門</option>
             <option value="D64業務部">D64業務部</option>
-            <option value="D78資訊中心">D78資訊中心</option>
+            <option value="D78 資訊中心">D78 資訊中心</option>
             <option value="T01四海站">T01四海站</option>
             <option value="T02南雅站">T02南雅站</option>
-            <option value="T03中和站">T03中和站</option>
-            <option value="T04新店站">T04新店站</option>
-            <option value="T05木柵站">T05木柵站</option>
+            {/* 其他選項 */}
           </select>
-          {/* 模擬下拉箭頭 */}
           <div className="absolute right-2 top-10 pointer-events-none">▼</div>
-          {errors.department && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.department.message}
-            </p>
+          {errors.dept && (
+            <p className="text-red-500 text-sm mt-1">{errors.dept.message}</p>
           )}
         </div>
 
@@ -109,7 +107,8 @@ export default function TaipeiBusBinding() {
         <div className="relative">
           <label className="block font-semibold mb-2">職稱</label>
           <select
-            {...register("department")}
+            value=""
+            {...register("job")}
             className="w-full p-2 border rounded bg-white appearance-none pr-8"
           >
             <option value="">請選擇職稱</option>
@@ -117,26 +116,17 @@ export default function TaipeiBusBinding() {
             <option value="經理">經理</option>
             <option value="科長">科長</option>
             <option value="副理">副理</option>
-            <option value="襄理">襄理</option>
-            <option value="課長">課長</option>
-            <option value="主任">主任</option>
-            <option value="股長">股長</option>
-            <option value="場站主管">場站主管</option>
-            <option value="場站職員">場站職員</option>
-            <option value="內勤職員">內勤職員</option>
+            {/* 其他選項 */}
           </select>
-          {/* 模擬下拉箭頭 */}
           <div className="absolute right-2 top-10 pointer-events-none">▼</div>
-          {errors.department && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.department.message}
-            </p>
+          {errors.job && (
+            <p className="text-red-500 text-sm mt-1">{errors.job.message}</p>
           )}
         </div>
 
-        {/* 專案群組 (標題變成橘色) */}
+        {/* 專案群組 */}
         <div>
-          <label className="block font-semibold mb-2 ">專案群組</label>
+          <label className="block font-semibold mb-2">專案群組</label>
           <input
             type="text"
             {...register("projectGroup")}
@@ -145,21 +135,19 @@ export default function TaipeiBusBinding() {
           />
         </div>
 
-        {/* 員工編號 (必填) */}
+        {/* 員工編號 */}
         <div>
           <label className="block font-semibold mb-2">
             員工編號 <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
-            {...register("employeeId")}
+            {...register("empId", { required: "請輸入員工編號" })}
             className="w-full p-2 border rounded"
             placeholder="輸入員工編號"
           />
-          {errors.employeeId && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.employeeId.message}
-            </p>
+          {errors.empId && (
+            <p className="text-red-500 text-sm mt-1">{errors.empId.message}</p>
           )}
         </div>
 
@@ -174,6 +162,8 @@ export default function TaipeiBusBinding() {
           />
         </div>
 
+        {/* 其他欄位：如果需要 phone 或 userId 等也可以加上 */}
+
         {/* 送出按鈕 */}
         <button
           type="submit"
@@ -181,9 +171,9 @@ export default function TaipeiBusBinding() {
         >
           送出表單
         </button>
-        {/* 表單下方的 channel id */}
+
         <h6 id="channel-id" className="text-sm bg-gray-200 p-2 mt-4">
-          channelId : 20089333-user:id
+          channelId : 2007028490-user:id
         </h6>
       </form>
     </div>

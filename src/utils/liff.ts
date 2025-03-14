@@ -26,21 +26,27 @@ export async function initLiff() {
 }
 
 /** ✅ 取得 `userId` */
-export async function getUserId(): Promise<string | null> {
+export async function getUserProfile(): Promise<{
+  userId: string;
+  displayName: string;
+} | null> {
   try {
     await liff.ready; // ✅ 確保 LIFF 已初始化
 
     if (!liff.isLoggedIn()) {
-      console.warn("⚠️ 使用者未登入，無法取得 userId");
+      console.warn("⚠️ 使用者未登入，無法取得 userId 和 displayName");
       return null;
     }
 
     const profile = await liff.getProfile();
-    console.log("✅ 取得使用者 ID：", profile.userId);
+    console.log("✅ 取得使用者資訊：", profile);
 
-    return profile.userId;
+    return {
+      userId: profile.userId,
+      displayName: profile.displayName,
+    };
   } catch (error) {
-    console.error("❌ 取得 userId 失敗", error);
+    console.error("❌ 取得使用者資訊失敗", error);
     return null;
   }
 }

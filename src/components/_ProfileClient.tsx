@@ -1,6 +1,6 @@
 "use client"; // ✅ 必須加上這行，讓 Next.js 知道這是 Client Component
 
-import { getUserId, initLiff } from "@/utils/liff";
+import { getUserProfile, initLiff } from "@/utils/liff";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
@@ -11,11 +11,12 @@ export default function Profile1Client() {
   useEffect(() => {
     async function fetchUserId() {
       await initLiff(); // ✅ 先初始化 LIFF
-      const id = await getUserId();
+      const Profile = await getUserProfile();
 
-      if (id) {
-        setUserId(id);
-        Cookies.set("userId", id, { expires: 7 });
+      if (Profile?.userId) {
+        setUserId(Profile.userId);
+        Cookies.set("userId", Profile?.userId, { expires: 7 });
+        Cookies.set("displayName", Profile?.displayName, { expires: 7 });
       }
       setLoading(false);
     }

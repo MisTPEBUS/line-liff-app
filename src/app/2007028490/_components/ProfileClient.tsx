@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation"; // ✅ 用來導向不同頁面
 import Cookies from "js-cookie"; // ✅ 讀取 & 設定 Cookie
 import axios from "axios";
-import { getUserId, initLiff } from "@/utils/liff";
+import { getUserProfile, initLiff } from "@/utils/liff";
 
 export default function ProfileClient() {
   const router = useRouter(); // ✅ 設定 Next.js router
@@ -14,18 +14,19 @@ export default function ProfileClient() {
   useEffect(() => {
     async function fetchUserIdAndData() {
       await initLiff(); // ✅ 先初始化 LIFF
-      const id = await getUserId();
+      const Profile = await getUserProfile();
 
-      if (id) {
-        setUserId(id);
-        Cookies.set("userId", id, { expires: 7 }); // ✅ 存入 Cookie
+      if (Profile?.userId) {
+        setUserId(Profile.userId);
+        Cookies.set("userId", Profile?.userId, { expires: 7 });
+        Cookies.set("displayName", Profile?.displayName, { expires: 7 });
 
         try {
           // ✅ 發送 API 請求
           const response = await axios.post(
             "https://line-notify-18ab.onrender.com/v1/api/lineHook/user/checkUser",
             {
-              userId: id,
+              userId: Profile?.userId,
               channelId: "2007028490",
             }
           );
