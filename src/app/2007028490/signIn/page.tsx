@@ -173,7 +173,7 @@ export default function TaipeiBusBinding() {
         </button>
 
         <h6 id="channel-id" className="text-sm bg-gray-200 p-2 mt-4">
-          channelId : 2007028490-user:id
+          channelId : 2007028490-user:{storedUserId}
         </h6>
       </form>
     </div>
