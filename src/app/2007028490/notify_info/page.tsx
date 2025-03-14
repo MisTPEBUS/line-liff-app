@@ -117,7 +117,6 @@ const NotificationBindingPage = () => {
           className="text-sm bg-gray-200 p-2 mt-4 text-center"
         >
           ChannelId: 2007028490
-          <p>userId:{storedUserId}</p>
         </h6>
       </Card>
     </div>
