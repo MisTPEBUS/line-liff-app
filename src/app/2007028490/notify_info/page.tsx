@@ -23,7 +23,7 @@ type Employee = {
 };
 
 // 假資料
-const mockData: Employee = {
+const test: Employee = {
   id: "acec81cc-5e65-442e-abc4-5cfe0af0f937",
   company: "臺北客運",
   groupCode: "",
@@ -40,9 +40,27 @@ const mockData: Employee = {
 const NotificationBindingPage = () => {
   // 點選「是，解除綁定」按鈕時呼叫此函式
   const [storedUserId, setStoredUserId] = useState<string | null>(null);
+  const [mockData, setMockData] = useState<Employee>(test);
   useEffect(() => {
     const userId = Cookies.get("userId");
     setStoredUserId(userId || null);
+    async function fetchUserIdAndData() {
+      try {
+        // ✅ 發送 API 請求
+        const response = await axios.post(
+          "https://line-notify-18ab.onrender.com/v1/api/lineHook/user/checkUser",
+          {
+            userId: userId,
+            channelId: "2007028490",
+          }
+        );
+        if (response.data) {
+          setMockData(response.data);
+        }
+      } catch (error) {
+        console.error("❌ API 請求失敗:", error);
+      }
+    }
   }, []);
   const handleUnbind = async () => {
     try {

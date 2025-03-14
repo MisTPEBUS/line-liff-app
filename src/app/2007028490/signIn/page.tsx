@@ -35,7 +35,6 @@ export default function TaipeiBusBinding() {
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
-  /*   const [userId, setUserId] = useState<string | null>(null); */
 
   const onSubmit = (data: FormData) => {
     console.log("📢 表單提交:", data);
