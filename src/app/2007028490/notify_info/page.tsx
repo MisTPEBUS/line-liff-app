@@ -2,10 +2,21 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import liff from "@line/liff";
 
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
+
+const handleKeepBinding = async () => {
+  try {
+    // 確保 LIFF 已初始化後關閉視窗
+    await liff.init({ liffId: "YOUR_LIFF_ID" });
+    liff.closeWindow();
+  } catch (error) {
+    console.error("關閉視窗失敗:", error);
+  }
+};
 // 定義 TypeScript 型別
 type Employee = {
   id: string;
@@ -107,7 +118,10 @@ const NotificationBindingPage = () => {
           >
             是，解除綁定
           </Button>
-          <Button className="w-full bg-gray-300 hover:bg-gray-400 py-2 rounded font-bold">
+          <Button
+            className="w-full bg-gray-300 hover:bg-gray-400 py-2 rounded font-bold"
+            onClick={handleKeepBinding}
+          >
             否，保持綁定
           </Button>
         </div>
