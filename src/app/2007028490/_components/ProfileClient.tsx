@@ -27,7 +27,7 @@ export default function ProfileClient() {
         Cookies.set("displayName", Profile?.displayName, { expires: 7 });
 
         try {
-          console.log("🟢 發送 API 請求...");
+          console.log("🟢 發送 API 請求... Profile?.userId");
           const response = await axios.post(
             "https://line-notify-18ab.onrender.com/v1/api/lineHook/user/checkUser",
             {
