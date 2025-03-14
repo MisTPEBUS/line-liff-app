@@ -12,9 +12,14 @@ export default function ProfileClient() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("🟢 useEffect 觸發了！");
+    debugger; // ✅ 這行會讓 DevTools 停住，幫助你檢查變數
+
     async function fetchUserIdAndData() {
-      await initLiff(); // ✅ 先初始化 LIFF
+      console.log("🟢 fetchUserIdAndData 開始執行");
+      await initLiff();
       const Profile = await getUserProfile();
+      console.log("🟢 取得的 Profile:", Profile);
 
       if (Profile?.userId) {
         setUserId(Profile.userId);
@@ -22,16 +27,15 @@ export default function ProfileClient() {
         Cookies.set("displayName", Profile?.displayName, { expires: 7 });
 
         try {
-          // ✅ 發送 API 請求
+          console.log("🟢 發送 API 請求...");
           const response = await axios.post(
             "https://line-notify-18ab.onrender.com/v1/api/lineHook/user/checkUser",
             {
-              userId: Profile?.userId,
+              userId: "U75e1554845bd81cba2151682ee99363d",
               channelId: "2007028490",
             }
           );
-          console.log("API call completed, response:", response.data);
-          // ✅ 判斷 `id` 是否存在，導向不同路徑
+
           if (response.data && response.data.id) {
             router.push(`/2007028490/notify_info`);
           } else {
