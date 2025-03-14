@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-import liff from "@line/liff";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
