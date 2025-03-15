@@ -175,15 +175,14 @@ export default function TaipeiBusBinding() {
             <option value="">請選擇職稱</option>
             <option value="協理">協理</option>
             <option value="經理">經理</option>
-
             <option value="副理">副理</option>
             <option value="襄理">襄理</option>
             <option value="課長">課長</option>
             <option value="主任">主任</option>
             <option value="股長">股長</option>
-            <option value="場站主管">場站主管</option>
-            <option value="場站職員">場站職員</option>
-            <option value="內勤職員">內勤職員</option>
+            <option value="站主管">站主管</option>
+            <option value="站管人員">站管人員</option>
+            <option value="管理員工">管理員工</option>
           </select>
           <div className="absolute right-2 top-10 pointer-events-none">▼</div>
           {errors.job && (
