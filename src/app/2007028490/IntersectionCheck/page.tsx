@@ -62,7 +62,7 @@ export default function ViolationForm() {
       setSubmitStatus("提交成功！");
       // 此處呼叫 API 送出 payload
     } catch (error) {
-      setSubmitStatus("提交失敗，請重試。");
+      setSubmitStatus(`提交失敗，請重試。${error}`);
     }
   };
 
