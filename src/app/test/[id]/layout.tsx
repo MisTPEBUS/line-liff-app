@@ -1,12 +1,10 @@
 import LiffProvider from "@/app/_components/LiffProvider/LiffProvider";
-
-export default function IdLayout({
-  children,
-  params,
-}: {
+interface LayoutProps {
   children: React.ReactNode;
   params: { id: string };
-}) {
+}
+
+export default function IdLayout({ children, params }: LayoutProps) {
   // 透過 params.id 動態取得 liffId
   const dynamicLiffId = getLiffIdFromDynamicParam(params.id);
 
