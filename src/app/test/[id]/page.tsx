@@ -21,7 +21,7 @@ export default function Page() {
         liff.login();
       }
     };
-
+    console.log();
     fetchProfile();
   }, [initialized]);
 
