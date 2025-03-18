@@ -1,24 +1,18 @@
 import LiffProvider from "@/app/_components/LiffProvider/LiffProvider";
-import { ReactNode } from "react";
 
-interface LayoutProps {
-  children: ReactNode;
-  params: { id: string }; // 確保 params 是正確的型別
-}
+const liffIdMapping: Record<string, string> = {
+  "2007028490": "2007049862-Le590xkP",
+  // 可以添加更多 id 對應的 LIFF ID
+};
 
-export default function IdLayout({ children, params }: LayoutProps) {
-  // 根據 id 取得對應的 LIFF ID
-  const dynamicLiffId = getLiffIdFromDynamicParam(params.id);
+export default function IdLayout({
+  children,
+  params, // 這裡要加上 params
+}: {
+  children: React.ReactNode;
+  params: { id: string };
+}) {
+  const dynamicLiffId = liffIdMapping[params.id] || "default_liff_id";
 
   return <LiffProvider liffId={dynamicLiffId}>{children}</LiffProvider>;
-}
-
-// 根據 id 回傳對應的 LIFF ID（可改為 API 查詢）
-function getLiffIdFromDynamicParam(id: string): string {
-  const liffIds: Record<string, string> = {
-    shopA: "LIFF_ID_1",
-    shopB: "LIFF_ID_2",
-  };
-
-  return liffIds[id] || "DEFAULT_LIFF_ID";
 }
