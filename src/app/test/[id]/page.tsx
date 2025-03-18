@@ -1,4 +1,4 @@
-"use client";
+/* "use client";
 import { useEffect, useState } from "react";
 
 import { useLiff } from "@/app/_components/LiffProvider/LiffProvider";
@@ -31,3 +31,4 @@ export default function Page() {
     </div>
   );
 }
+ */

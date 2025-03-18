@@ -1,4 +1,4 @@
-import LiffProvider from "@/app/_components/LiffProvider/LiffProvider";
+/* import LiffProvider from "@/app/_components/LiffProvider/LiffProvider";
 
 export default function IdLayout({
   children,
@@ -22,3 +22,4 @@ function getLiffIdFromDynamicParam(id: string): string {
 
   return liffIds[id] || "DEFAULT_LIFF_ID";
 }
+ */
