@@ -10,13 +10,14 @@ interface LineLiffProps {
 export type LiffProfileType = {
   userId: string;
   displayName: string;
-  pictureUrl: string;
-  statusMessage: string;
+  pictureUrl?: string;
+  statusMessage?: string;
 };
 
 const LineLiff = ({ id, children }: LineLiffProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [profile, setProfile] = useState<LiffProfileType | null>(null);
+
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const LineLiff = ({ id, children }: LineLiffProps) => {
         }
 
         setIsLoggedIn(true);
-        const userProfile = await liff.getProfile();
+        const userProfile = await liff.getProfile(); // ✅ 等待 Promise 解析
         setProfile(userProfile);
       } catch (err) {
         console.error("LIFF 初始化失敗:", err);
