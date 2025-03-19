@@ -1,8 +1,16 @@
 import { useState, useEffect } from "react";
 import liff from "@line/liff";
 
+interface Profile {
+  userId: string;
+  displayName: string;
+  pictureUrl?: string;
+  statusMessage?: string;
+  language?: string;
+}
+
 const useLiff = (liffId?: string) => {
-  const [profile, setProfile] = useState<liff.Profile | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
