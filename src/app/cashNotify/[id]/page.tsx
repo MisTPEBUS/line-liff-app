@@ -1,7 +1,7 @@
 "use client"; // ✅ 這是 Client Component，避免 SSR
 
 import LineLiff from "@/app/_components/LineLiff/LineLiff";
-import ProductDetail from "@/app/_components/ProductDetail/ProductDetail";
+
 import { useParams } from "next/navigation";
 import NotifyInfo from "./notify_info/page";
 
@@ -12,7 +12,7 @@ const CashNotifyPage = () => {
   return (
     <div className="p-6">
       <h1 className="text-xl font-bold">Cash Notify ID: {id}</h1>
-      <ProductDetail id={id} />
+
       <LineLiff id={id}>
         <NotifyInfo />
       </LineLiff>
