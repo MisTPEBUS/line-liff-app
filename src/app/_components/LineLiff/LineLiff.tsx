@@ -1,7 +1,7 @@
 "use client";
 
-import { LiffProvider } from "@/app/context/liffContext";
 import { ReactNode } from "react";
+import { LiffProvider } from "@/context/LiffContext";
 
 interface LineLiffProps {
   id: string;

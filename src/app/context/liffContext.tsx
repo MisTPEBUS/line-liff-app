@@ -1,3 +1,4 @@
+// src/context/LiffContext.tsx
 "use client";
 
 import {
@@ -42,12 +43,11 @@ export const LiffProvider = ({ children }: { children: ReactNode }) => {
       try {
         await liff.init({
           liffId: "2007049862-Le590xkP",
-          withLoginOnExternalBrowser: true, // ✅ 確保外部瀏覽器也能登入
+          withLoginOnExternalBrowser: true,
         });
 
         if (!liff.isLoggedIn()) {
-          const redirectUrl = `${window.location.origin}${window.location.pathname}`;
-          liff.login({ redirectUri: redirectUrl }); // ✅ 確保登入後回到 LIFF 內部
+          liff.login({ redirectUri: window.location.href });
           return;
         }
 

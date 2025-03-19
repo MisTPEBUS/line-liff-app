@@ -1,9 +1,9 @@
-"use client";
+"use client"; // ✅ 這是 Client Component，避免 SSR
 
-import LineLiff from "@/app/_components/LineLiff/LineLiff";
-import ProductDetail from "@/app/_components/ProductDetail/ProductDetail";
 import { useParams } from "next/navigation";
-import NotifyInfo from "@/app/_components/NotifyInfo/NotifyInfo"; // ✅ 直接 import，而不是用 `./notify_info/page`
+import LineLiff from "@/components/LineLiff";
+import ProductDetail from "@/components/ProductDetail";
+import NotifyInfo from "@/components/NotifyInfo";
 
 const CashNotifyPage = () => {
   const params = useParams();
