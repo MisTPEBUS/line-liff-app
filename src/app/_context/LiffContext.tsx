@@ -49,7 +49,9 @@ export const LiffProvider = ({ children }: { children: ReactNode }) => {
         if (!liff.isLoggedIn()) {
           const redirectUrl = window.location.href;
           console.log("🔹 Redirecting to LIFF login:", redirectUrl);
-          liff.login({ redirectUri: redirectUrl });
+          liff.login({
+            redirectUri: "https://liff.line.me/2007049862-Le590xkP",
+          }); // ✅ 確保回到 LIFF
           return;
         }
 
