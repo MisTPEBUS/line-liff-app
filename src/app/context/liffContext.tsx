@@ -36,12 +36,18 @@ export const LiffProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const initLiff = async () => {
       try {
-        await liff.init({ liffId: "YOUR_LIFF_ID" });
+        await liff.init({
+          liffId: "2007049862-Le590xkP",
+          withLoginOnExternalBrowser: true, // ✅ 確保外部瀏覽器也能登入
+        });
 
         if (!liff.isLoggedIn()) {
-          liff.login();
+          const redirectUrl = `${window.location.origin}${window.location.pathname}`;
+          liff.login({ redirectUri: redirectUrl }); // ✅ 確保登入後回到 LIFF 內部
           return;
         }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useLiff } from "@/app/context/liffContext";
+import { useLiff } from "@/context/LiffContext";
 
 const NotifyInfo = () => {
   const { profile, isLoggedIn } = useLiff();
