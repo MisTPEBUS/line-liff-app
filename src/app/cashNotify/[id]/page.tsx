@@ -11,8 +11,6 @@ const CashNotifyPage = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-xl font-bold">Cash Notify ID: {id}</h1>
-
       <LineLiff id={id}>
         <NotifyInfo />
       </LineLiff>

@@ -18,6 +18,8 @@ const NotifyInfo = () => {
               className="w-16 h-16 rounded-full mt-2"
             />
           )}
+          <p>{profile?.statusMessage}</p>
+          <p>{profile?.userId}</p>
         </div>
       ) : (
         <p>尚未登入</p>
