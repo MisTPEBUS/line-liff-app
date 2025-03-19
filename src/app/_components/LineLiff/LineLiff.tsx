@@ -7,10 +7,16 @@ interface LineLiffProps {
   id: string;
   children?: ReactNode; // 支援 children
 }
+export type LiffProfileType = {
+  userId: string;
+  displayName: string;
+  pictureUrl: string;
+  statusMessage: string;
+};
 
 const LineLiff = ({ id, children }: LineLiffProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [profile, setProfile] = useState<any>(null);
+  const [profile, setProfile] = useState<LiffProfileType | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
