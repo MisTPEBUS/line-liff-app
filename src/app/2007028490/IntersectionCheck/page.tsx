@@ -107,7 +107,7 @@ export default function ViolationForm() {
                 className={`cursor-pointer border rounded-lg p-3 text-center ${
                   selectedViolations.includes(v)
                     ? "bg-blue-500 text-white"
-                    : "bg-gray-100"
+                    : "bg-blue-100"
                 }`}
               >
                 {v}
@@ -121,9 +121,14 @@ export default function ViolationForm() {
           )}
         </div>
 
-        <button className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
-          提交
-        </button>
+        <div className="relative">
+          <button
+            className="w-full bg-blue-400 text-white p-2 rounded hover:bg-blue-600 
+    sticky bottom-0 left-0 mt-4 shadow-lg"
+          >
+            提交
+          </button>
+        </div>
 
         {submitStatus && (
           <p className="text-center mt-2 font-semibold">{submitStatus}</p>
