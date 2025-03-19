@@ -41,7 +41,7 @@ const test: Employee = {
 const NotifyInfo = () => {
   const router = useRouter();
   // 點選「是，解除綁定」按鈕時呼叫此函式
-  const [storedUserId, setStoredUserId] = useState<string | null>(null);
+  /*   const [storedUserId, setStoredUserId] = useState<string | null>(null); */
   const [mockData, setMockData] = useState<Employee>(test);
 
   const handleRedirectAndClose = async () => {
@@ -52,7 +52,7 @@ const NotifyInfo = () => {
   };
   useEffect(() => {
     const userId = Cookies.get("userId");
-    setStoredUserId(userId || null);
+    /*   setStoredUserId(userId || null); */
     async function fetchUserIdAndData() {
       try {
         // ✅ 發送 API 請求
