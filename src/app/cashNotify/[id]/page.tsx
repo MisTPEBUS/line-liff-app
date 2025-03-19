@@ -1,9 +1,9 @@
 "use client";
 
-import LineLiff from "@/app/_components/LineLiff/LineLiff";
+/* import LineLiff from "@/app/_components/LineLiff/LineLiff"; */
 import ProductDetail from "@/app/_components/ProductDetail/ProductDetail";
 import { useParams } from "next/navigation";
-import NotifyInfo from "./notify_info/page";
+/* import NotifyInfo from "./notify_info/page"; */
 
 /* import { useEffect, useState } from "react"; */
 
