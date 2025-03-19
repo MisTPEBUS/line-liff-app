@@ -43,11 +43,13 @@ export const LiffProvider = ({ children }: { children: ReactNode }) => {
       try {
         await liff.init({
           liffId: "2007049862-Le590xkP",
-          withLoginOnExternalBrowser: true,
+          withLoginOnExternalBrowser: false, // ✅ 確保 LIFF 只在 LINE 內部處理
         });
 
         if (!liff.isLoggedIn()) {
-          liff.login({ redirectUri: window.location.href });
+          const redirectUrl = window.location.href;
+          console.log("🔹 Redirecting to LIFF login:", redirectUrl);
+          liff.login({ redirectUri: redirectUrl });
           return;
         }
 
@@ -55,11 +57,22 @@ export const LiffProvider = ({ children }: { children: ReactNode }) => {
         const userProfile = await liff.getProfile();
         setProfile(userProfile);
       } catch (error) {
-        console.error("LIFF 初始化失敗:", error);
+        console.error("❌ LIFF 初始化失敗:", error);
       }
     };
 
     initLiff();
+  }, []);
+
+  // 🔹 修正滑動問題
+  useEffect(() => {
+    document.body.style.overflow = "auto";
+    document.documentElement.style.overflow = "auto";
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
   }, []);
 
   return (
