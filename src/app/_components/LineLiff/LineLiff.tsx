@@ -23,7 +23,7 @@ const LineLiff = ({ id, children }: LineLiffProps) => {
   useEffect(() => {
     const initLiff = async () => {
       try {
-        await liff.init({ liffId: "YOUR_LIFF_ID" });
+        await liff.init({ liffId: "2007049862-Le590xkP" });
 
         if (!liff.isLoggedIn()) {
           liff.login();
