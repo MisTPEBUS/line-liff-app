@@ -1,4 +1,3 @@
-// src/context/LiffContext.tsx
 "use client";
 
 import {
@@ -20,6 +19,7 @@ interface LiffProfileType {
 interface LiffContextType {
   profile: LiffProfileType | null;
   isLoggedIn: boolean;
+  sendBackToLiffMessage: () => void;
 }
 
 const LiffContext = createContext<LiffContextType | undefined>(undefined);
@@ -43,15 +43,12 @@ export const LiffProvider = ({ children }: { children: ReactNode }) => {
       try {
         await liff.init({
           liffId: "2007049862-Le590xkP",
-          withLoginOnExternalBrowser: false, // ✅ 確保 LIFF 只在 LINE 內部處理
+          withLoginOnExternalBrowser: true, // ✅ 確保外部瀏覽器也能登入
         });
 
         if (!liff.isLoggedIn()) {
-          const redirectUrl = window.location.href;
-          console.log("🔹 Redirecting to LIFF login:", redirectUrl);
-          liff.login({
-            redirectUri: "https://liff.line.me/2007049862-Le590xkP",
-          }); // ✅ 確保回到 LIFF
+          console.log("🔹 Redirecting to LIFF login:", window.location.href);
+          liff.login({ redirectUri: window.location.href });
           return;
         }
 
@@ -77,8 +74,33 @@ export const LiffProvider = ({ children }: { children: ReactNode }) => {
     };
   }, []);
 
+  // 🔹 發送回到 LIFF 的連結
+  const sendBackToLiffMessage = async () => {
+    try {
+      if (!liff.isLoggedIn()) {
+        alert("請先登入 LINE");
+        return;
+      }
+
+      const liffUrl = liff.permanentLink.createUrl(); // ✅ 產生 LIFF 的返回網址
+
+      await liff.sendMessages([
+        {
+          type: "text",
+          text: `點擊這裡回到應用 👉 ${liffUrl}`,
+        },
+      ]);
+
+      alert("已發送返回 LIFF 應用的連結！");
+    } catch (error) {
+      console.error("發送訊息失敗:", error);
+    }
+  };
+
   return (
-    <LiffContext.Provider value={{ profile, isLoggedIn }}>
+    <LiffContext.Provider
+      value={{ profile, isLoggedIn, sendBackToLiffMessage }}
+    >
       {children}
     </LiffContext.Provider>
   );
