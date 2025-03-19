@@ -1,9 +1,9 @@
 "use client"; // ✅ 這是 Client Component，避免 SSR
 
+import LineLiff from "@/app/_components/LineLiff/LineLiff";
+import ProductDetail from "@/app/_components/ProductDetail/ProductDetail";
 import { useParams } from "next/navigation";
-import LineLiff from "@/components/LineLiff";
-import ProductDetail from "@/components/ProductDetail";
-import NotifyInfo from "@/components/NotifyInfo";
+import NotifyInfo from "./notify_info/page";
 
 const CashNotifyPage = () => {
   const params = useParams();
