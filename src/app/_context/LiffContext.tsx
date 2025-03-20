@@ -42,7 +42,7 @@ export const LiffProvider = ({ children }: { children: ReactNode }) => {
     const initLiff = async () => {
       try {
         await liff.init({
-          liffId: "2007049862-Le590xkP",
+          liffId: process.env.NEXT_PUBLIC_LIFF_ID as string,
           withLoginOnExternalBrowser: true, // ✅ 確保外部瀏覽器也能登入
         });
 
@@ -53,8 +53,12 @@ export const LiffProvider = ({ children }: { children: ReactNode }) => {
         }
 
         setIsLoggedIn(true);
-        const userProfile = await liff.getProfile();
-        setProfile(userProfile);
+        try {
+          const userProfile = await liff.getProfile();
+          setProfile(userProfile);
+        } catch (error) {
+          console.error("❌ 無法獲取使用者資料:", error);
+        }
       } catch (error) {
         console.error("❌ LIFF 初始化失敗:", error);
       }
@@ -92,6 +96,7 @@ export const LiffProvider = ({ children }: { children: ReactNode }) => {
       ]);
 
       alert("已發送返回 LIFF 應用的連結！");
+      liff.closeWindow(); // ✅ 自動關閉 LIFF 視窗
     } catch (error) {
       console.error("發送訊息失敗:", error);
     }
